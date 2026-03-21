@@ -1,0 +1,65 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 72px;
+  background: var(--surface);
+}
+
+.links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+
+.links a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: var(--green-600);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.loginBtn {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.loginBtn:hover {
+  background: var(--green-50);
+}
+
+.downloadBtn {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--surface);
+  background: var(--green-600);
+  padding: 0.55rem 1.25rem;
+  border-radius: 999px;
+  border: 2px solid var(--green-600);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.downloadBtn:hover {
+  background: var(--green-700);
+  border-color: var(--green-700);
+}

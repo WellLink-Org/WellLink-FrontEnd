@@ -1,0 +1,55 @@
+.section {
+  background: var(--surface-2);
+  padding: 3.5rem 2.5rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  padding: 1.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+
+.card:hover {
+  border-color: var(--green-300);
+  box-shadow: 0 4px 24px rgba(29, 92, 46, 0.08);
+}
+
+.icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--green-900);
+  margin-bottom: 0.5rem;
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.arrow {
+  font-size: 1rem;
+  color: var(--green-500);
+  font-weight: 700;
+}

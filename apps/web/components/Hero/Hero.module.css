@@ -1,0 +1,282 @@
+.section {
+  background: var(--surface);
+  padding: 0;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  min-height: 680px;
+}
+
+/* ─── Left ─── */
+.left {
+  padding: 5rem 4rem 4rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--green-600);
+  background: var(--green-50);
+  border: 1px solid var(--green-100);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+  max-width: fit-content;
+}
+
+.heading {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--green-900);
+  margin-bottom: 1.25rem;
+}
+
+.sub {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 420px;
+  margin-bottom: 2rem;
+}
+
+.ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.25rem;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--surface);
+  background: var(--green-600);
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+
+.primaryCta:hover {
+  background: var(--green-700);
+  transform: translateY(-1px);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.secondaryCta:hover {
+  border-color: var(--green-400);
+  background: var(--green-50);
+}
+
+/* ─── Right — Photo background ─── */
+.right {
+  position: relative;
+  overflow: hidden;
+}
+
+.photoBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Subtle left-edge fade so photo blends into left column */
+.right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    /* left edge */
+    linear-gradient(to right, var(--surface) 0%, transparent 15%),
+    /* right edge */
+    linear-gradient(to left, var(--surface) 0%, transparent 15%),
+    /* top edge */
+    linear-gradient(to bottom, var(--surface) 0%, transparent 15%),
+    /* bottom edge */
+    linear-gradient(to top, var(--surface) 0%, transparent 15%);
+}
+
+/* ─── Floating cards ─── */
+.floatCardA,
+.floatCardB {
+  position: absolute;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  box-shadow:
+    0 4px 24px rgba(10, 31, 15, 0.1),
+    0 1px 4px rgba(10, 31, 15, 0.06);
+  max-width: 240px;
+}
+
+.floatCardA {
+  top: 10rem;
+  right: 22rem;
+}
+
+.floatCardB {
+  bottom: 5rem;
+  right: 2.5rem;
+}
+
+/* Icon container — replaces emoji */
+.floatIconWrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.floatIconWrap svg {
+  display: block;
+}
+
+.floatIconWrapGreen {
+  background: #e6f4ea;
+}
+
+.floatIconWrapAmber {
+  background: #fff8e6;
+}
+
+.floatTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--green-800);
+  letter-spacing: 0.01em;
+}
+
+.floatSub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-top: 0.15rem;
+}
+
+/* Status dot */
+.floatStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.floatDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.floatDotGreen {
+  background: #2d7a40;
+  animation: pulse 2s infinite;
+}
+
+.floatDotAmber {
+  background: #c47a00;
+}
+
+.floatStatusText {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.floatStatusTextGreen {
+  color: #2d7a40;
+}
+
+.floatStatusTextAmber {
+  color: #b36e00;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
+
+  .left {
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  .right {
+    height: 340px;
+  }
+
+  .right::before {
+    background: linear-gradient(to bottom, var(--surface) 0%, transparent 20%);
+  }
+
+  .floatCardA {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .floatCardB {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
