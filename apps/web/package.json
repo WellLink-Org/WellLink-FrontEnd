@@ -12,6 +12,13 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.16.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/material": "^7.3.9",
+    "@mui/material-nextjs": "^7.3.9",
+    "@mui/x-charts": "^8.28.0",
+    "@mui/x-tree-view": "^8.27.2",
     "@repo/ui": "*",
     "http-proxy-middleware": "^3.0.5",
     "mui": "^0.0.1",

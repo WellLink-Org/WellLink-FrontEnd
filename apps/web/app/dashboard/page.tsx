@@ -1,19 +1,152 @@
-import { redirect } from "next/navigation";
-import { auth0 } from "../../lib/auth0";
+"use client";
+import * as React from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
+import {
+  CountriesChart,
+  DashboardSettingsDialog,
+  DetailsTable,
+  InsightCard,
+  PageViewsChart,
+  ProductTree,
+  SectionHeader,
+  SendDialog,
+  SessionsChart,
+  StatCard,
+} from "../../components/Dashboard/components";
+import SendIcon from "@mui/icons-material/Send";
+import SettingsIcon from "@mui/icons-material/Settings";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { useState } from "react";
 
-export default async function DashboardPage() {
-  const session = await auth0.getSession();
+const stats = [
+  {
+    title: "Users",
+    value: "14k",
+    interval: "Last 30 days",
+    trend: "up" as const,
+    trendLabel: "+25%",
+  },
+  {
+    title: "Conversions",
+    value: "325",
+    interval: "Last 30 days",
+    trend: "down" as const,
+    trendLabel: "-25%",
+  },
+  {
+    title: "Event count",
+    value: "200k",
+    interval: "Last 30 days",
+    trend: "up" as const,
+    trendLabel: "+5%",
+  },
+];
 
-  if (!session) redirect("/login");
-
-  const role = session.user["https://welllink.app/role"] ?? "user";
+export default function DashboardPage() {
+  const [sendOpen, setSendOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <div>
-      <h1>Welcome, {session.user.name}!</h1>
-      <p>Role: {role}</p>
-      <p>Email: {session.user.email}</p>
-      <a href="/auth/logout">Log out</a>
-    </div>
+    <Box>
+      <SectionHeader
+        title="Dashboard"
+        subtitle={`Last synced on ${new Date().toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        })}`}
+        action={
+          <Button
+            variant="contained"
+            startIcon={<AutoAwesomeRoundedIcon />}
+            size="small"
+          >
+            Get insights
+          </Button>
+        }
+        toolbar={
+          <>
+            <Tooltip title="Send">
+              <IconButton onClick={() => setSendOpen(true)}>
+                <SendIcon
+                  fontSize="small"
+                  sx={{ transform: "rotate(-45deg)" }}
+                />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Dashboard Settings">
+              <IconButton onClick={() => setSettingsOpen(true)}>
+                <SettingsIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </>
+        }
+      />
+      <SendDialog open={sendOpen} onClose={() => setSendOpen(false)} />
+      <DashboardSettingsDialog
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+      />
+      {/* Overview label */}
+      <Typography
+        variant="overline"
+        color="text.secondary"
+        sx={{ mb: 1.5, display: "block" }}
+      >
+        Overview
+      </Typography>
+
+      {/* Stat cards + insight promo */}
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        {stats.map((s) => (
+          <Grid key={s.title} size={{ xs: 12, sm: 6, md: 3 }}>
+            <StatCard {...s} />
+          </Grid>
+        ))}
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <InsightCard />
+        </Grid>
+      </Grid>
+
+      {/* Charts row */}
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <SessionsChart />
+        </Grid>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <PageViewsChart />
+        </Grid>
+      </Grid>
+
+      {/* Details + tree + countries */}
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        <Grid size={{ xs: 12, lg: 8 }}>
+          <DetailsTable />
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6, lg: 2 }}>
+          <ProductTree />
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6, lg: 2 }}>
+          <CountriesChart />
+        </Grid>
+      </Grid>
+
+      {/* Footer */}
+      <Divider sx={{ mb: 2 }} />
+      <Typography
+        variant="caption"
+        color="text.secondary"
+        align="center"
+        display="block"
+      >
+        Copyright © WellLink {new Date().getFullYear()}
+      </Typography>
+    </Box>
   );
 }
