@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Logo from "../components/Logo/Logo";
-import Head from "next/head";
+import { Auth0Provider } from "@auth0/nextjs-auth0/client";
 
 export const metadata: Metadata = {
   title: "WellLink - Your Health, Connected",
@@ -19,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Auth0Provider>{children}</Auth0Provider>
+      </body>
     </html>
   );
 }
