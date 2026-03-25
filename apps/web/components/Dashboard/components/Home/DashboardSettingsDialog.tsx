@@ -23,6 +23,7 @@ import TableChartRoundedIcon from "@mui/icons-material/TableChartRounded";
 import AccountTreeRoundedIcon from "@mui/icons-material/AccountTreeRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 // Lazy-load the actual components for preview
 import dynamic from "next/dynamic";
@@ -138,20 +139,18 @@ export default function DashboardSettingsDialog({
         },
       }}
     >
-      <DialogTitle sx={{ pb: 0, px: 2.5, pt: 2 }}>
+      <DialogTitle sx={{ pb: 0, pt: 2, px: 2.5 }}>
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Box>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <SettingsIcon sx={{ color: "primary.main", fontSize: 20 }} />
             <Typography variant="subtitle1" fontWeight={700}>
               Dashboard Settings
             </Typography>
-            <Typography variant="caption" color="text.secondary">
-              Browse and preview available components
-            </Typography>
-          </Box>
+          </Stack>
           <IconButton
             size="small"
             onClick={onClose}
@@ -160,6 +159,14 @@ export default function DashboardSettingsDialog({
             <CloseRoundedIcon fontSize="small" />
           </IconButton>
         </Stack>
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          display="block"
+          mt={0.5}
+        >
+          Browse and preview available components
+        </Typography>
       </DialogTitle>
 
       <Divider sx={{ mt: 1.5 }} />

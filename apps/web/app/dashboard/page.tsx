@@ -22,7 +22,9 @@ import SendIcon from "@mui/icons-material/Send";
 import SettingsIcon from "@mui/icons-material/Settings";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { healthApi } from "../../api/healthAPI";
 
 const stats = [
   {
@@ -52,6 +54,13 @@ export default function DashboardPage() {
   const [sendOpen, setSendOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
+  useEffect(() => {
+    getDashboardData();
+  }, []);
+  async function getDashboardData() {
+    const response = await healthApi.getNames();
+    console.log(response);
+  }
   return (
     <Box>
       <SectionHeader
@@ -62,13 +71,15 @@ export default function DashboardPage() {
           year: "numeric",
         })}`}
         action={
-          <Button
-            variant="contained"
-            startIcon={<AutoAwesomeRoundedIcon />}
-            size="small"
-          >
-            Get insights
-          </Button>
+          <Link href="/dashboard/insights" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              startIcon={<AutoAwesomeRoundedIcon />}
+              size="small"
+            >
+              Get insights
+            </Button>
+          </Link>
         }
         toolbar={
           <>

@@ -28,7 +28,7 @@ export default function SectionHeader({
       spacing={1.5}
       sx={{ mb: 3 }}
     >
-      <Stack direction="row" spacing={1} alignItems="start">
+      <Stack direction="row" spacing={2} alignItems="start">
         <Box>
           <Typography
             variant="h5"

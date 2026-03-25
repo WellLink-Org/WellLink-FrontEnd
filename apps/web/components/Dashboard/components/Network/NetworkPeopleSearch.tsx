@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import PersonSearchRoundedIcon from "@mui/icons-material/PersonSearchRounded";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 export interface PersonResult {
   id: string;
@@ -37,21 +37,28 @@ interface NetworkPeopleSearchProps {
 
 function getInitials(name: string) {
   return name
-    .split(' ')
+    .split(" ")
     .map((n) => n[0])
     .slice(0, 2)
-    .join('')
+    .join("")
     .toUpperCase();
 }
 
 const AVATAR_COLORS = [
-  '#2563eb', '#7c3aed', '#db2777', '#059669',
-  '#d97706', '#dc2626', '#0891b2', '#4f46e5',
+  "#2563eb",
+  "#7c3aed",
+  "#db2777",
+  "#059669",
+  "#d97706",
+  "#dc2626",
+  "#0891b2",
+  "#4f46e5",
 ];
 
 function getAvatarColor(id: string) {
   let hash = 0;
-  for (let i = 0; i < id.length; i++) hash = id.charCodeAt(i) + ((hash << 5) - hash);
+  for (let i = 0; i < id.length; i++)
+    hash = id.charCodeAt(i) + ((hash << 5) - hash);
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
@@ -65,7 +72,7 @@ export default function NetworkPeopleSearch({
   alreadyAddedIds = [],
 }: NetworkPeopleSearchProps) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <TextField
         fullWidth
         size="small"
@@ -76,43 +83,49 @@ export default function NetworkPeopleSearch({
           input: {
             startAdornment: (
               <InputAdornment position="start">
-                <SearchRoundedIcon fontSize="small" sx={{ color: 'text.disabled' }} />
+                <SearchRoundedIcon
+                  fontSize="small"
+                  sx={{ color: "text.disabled" }}
+                />
               </InputAdornment>
             ),
           },
         }}
         sx={{
           mb: 1,
-          '& .MuiOutlinedInput-root': {
-            borderRadius: '10px',
-            fontSize: '0.85rem',
-            '& fieldset': { borderColor: 'divider' },
-            '&:hover fieldset': { borderColor: 'primary.main' },
-            '&.Mui-focused fieldset': { borderColor: 'primary.main', borderWidth: 1 },
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "10px",
+            fontSize: "0.85rem",
+            "& fieldset": { borderColor: "divider" },
+            "&:hover fieldset": { borderColor: "primary.main" },
+            "&.Mui-focused fieldset": {
+              borderColor: "primary.main",
+              borderWidth: 1,
+            },
           },
         }}
       />
 
-      <Box sx={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
+      <Box sx={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", pt: 4 }}>
             <CircularProgress size={24} />
           </Box>
         ) : people.length === 0 ? (
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               py: 4,
               gap: 1,
-              color: 'text.disabled',
+              color: "text.disabled",
             }}
           >
             <PersonSearchRoundedIcon sx={{ fontSize: 36 }} />
             <Typography variant="body2">
-              {search ? 'No people found' : 'Start typing to search'}
+              {search ? "No people found" : "Start typing to search"}
             </Typography>
           </Box>
         ) : (
@@ -126,14 +139,14 @@ export default function NetworkPeopleSearch({
                     onClick={() => onSelect(person)}
                     selected={isSelected}
                     sx={{
-                      borderRadius: '10px',
+                      borderRadius: "10px",
                       py: 0.75,
                       px: 1,
-                      '&.Mui-selected': {
-                        bgcolor: 'primary.50',
-                        '&:hover': { bgcolor: 'primary.50' },
+                      "&.Mui-selected": {
+                        bgcolor: "primary.50",
+                        "&:hover": { bgcolor: "primary.50" },
                       },
-                      '&:hover': { bgcolor: 'action.hover' },
+                      "&:hover": { bgcolor: "action.hover" },
                     }}
                   >
                     <ListItemAvatar sx={{ minWidth: 40 }}>
@@ -142,12 +155,20 @@ export default function NetworkPeopleSearch({
                           width: 32,
                           height: 32,
                           bgcolor: getAvatarColor(person.id),
-                          fontSize: '0.7rem',
+                          fontSize: "0.7rem",
                           fontWeight: 700,
                         }}
                       >
                         {person.avatar ? (
-                          <img src={person.avatar} alt={person.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          <img
+                            src={person.avatar}
+                            alt={person.name}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
                         ) : (
                           getInitials(person.name)
                         )}
@@ -160,15 +181,24 @@ export default function NetworkPeopleSearch({
                         </Typography>
                       }
                       secondary={
-                        <Typography variant="caption" color="text.secondary" noWrap>
+                        <Typography
+                          variant="caption"
+                          color="text.secondary"
+                          noWrap
+                        >
                           {person.role}
-                          {person.department ? ` · ${person.department}` : ''}
+                          {person.department ? ` · ${person.department}` : ""}
                         </Typography>
                       }
                     />
                     {isAdded && (
                       <CheckCircleRoundedIcon
-                        sx={{ fontSize: 16, color: 'success.main', ml: 0.5, flexShrink: 0 }}
+                        sx={{
+                          fontSize: 16,
+                          color: "success.main",
+                          ml: 0.5,
+                          flexShrink: 0,
+                        }}
                       />
                     )}
                   </ListItemButton>

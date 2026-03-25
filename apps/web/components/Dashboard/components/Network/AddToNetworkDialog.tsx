@@ -251,6 +251,7 @@ export default function AddToNetworkDialog({
             size="small"
             disabled={!selectedPerson || isAlreadyAdded}
             onClick={handleAdd}
+            sx={{ borderRadius: 0.6 }}
             startIcon={
               <SendRoundedIcon
                 sx={{

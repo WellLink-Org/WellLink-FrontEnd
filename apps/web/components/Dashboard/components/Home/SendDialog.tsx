@@ -1,39 +1,39 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import Checkbox from '@mui/material/Checkbox';
-import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import * as React from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
+import Checkbox from "@mui/material/Checkbox";
+import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
 
 const PEOPLE = [
-  { id: '1', name: 'Sarah Johnson', role: 'Product Manager', avatar: '' },
-  { id: '2', name: 'Marcus Chen', role: 'Engineering Lead', avatar: '' },
-  { id: '3', name: 'Emily Davis', role: 'UX Designer', avatar: '' },
-  { id: '4', name: 'Robert Kim', role: 'Data Analyst', avatar: '' },
-  { id: '5', name: 'Ana Martins', role: 'Marketing', avatar: '' },
-  { id: '6', name: 'James Wilson', role: 'Sales Director', avatar: '' },
-  { id: '7', name: 'Priya Patel', role: 'DevOps Engineer', avatar: '' },
-  { id: '8', name: 'Lucas Oliveira', role: 'Backend Developer', avatar: '' },
+  { id: "1", name: "Sarah Johnson", role: "Product Manager", avatar: "" },
+  { id: "2", name: "Marcus Chen", role: "Engineering Lead", avatar: "" },
+  { id: "3", name: "Emily Davis", role: "UX Designer", avatar: "" },
+  { id: "4", name: "Robert Kim", role: "Data Analyst", avatar: "" },
+  { id: "5", name: "Ana Martins", role: "Marketing", avatar: "" },
+  { id: "6", name: "James Wilson", role: "Sales Director", avatar: "" },
+  { id: "7", name: "Priya Patel", role: "DevOps Engineer", avatar: "" },
+  { id: "8", name: "Lucas Oliveira", role: "Backend Developer", avatar: "" },
 ];
 
 interface SendDialogProps {
@@ -42,34 +42,34 @@ interface SendDialogProps {
 }
 
 export default function SendDialog({ open, onClose }: SendDialogProps) {
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState("");
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const filtered = PEOPLE.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.role.toLowerCase().includes(search.toLowerCase())
+      p.role.toLowerCase().includes(search.toLowerCase()),
   );
 
   const toggle = (id: string) =>
     setSelected((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     );
 
   const selectedPeople = PEOPLE.filter((p) => selected.includes(p.id));
 
   const handleSend = () => {
     // wire to your send logic
-    console.log('Sending to:', selectedPeople);
+    console.log("Sending to:", selectedPeople);
     onClose();
     setSelected([]);
-    setSearch('');
+    setSearch("");
   };
 
   const handleClose = () => {
     onClose();
     setSelected([]);
-    setSearch('');
+    setSearch("");
   };
 
   return (
@@ -80,16 +80,24 @@ export default function SendDialog({ open, onClose }: SendDialogProps) {
       maxWidth="xs"
       slotProps={{
         paper: {
-          sx: { borderRadius: '14px' },
+          sx: { borderRadius: "14px" },
         },
       }}
     >
       <DialogTitle sx={{ pb: 1 }}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Typography variant="subtitle1" fontWeight={700}>
-            Share dashboard
+            Share
           </Typography>
-          <IconButton size="small" onClick={handleClose} sx={{ color: 'text.secondary' }}>
+          <IconButton
+            size="small"
+            onClick={handleClose}
+            sx={{ color: "text.secondary" }}
+          >
             <CloseRoundedIcon fontSize="small" />
           </IconButton>
         </Stack>
@@ -107,42 +115,51 @@ export default function SendDialog({ open, onClose }: SendDialogProps) {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchRoundedIcon fontSize="small" sx={{ color: 'text.secondary' }} />
+                  <SearchRoundedIcon
+                    fontSize="small"
+                    sx={{ color: "text.secondary" }}
+                  />
                 </InputAdornment>
               ),
             },
           }}
           sx={{
             mb: 1.5,
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '10px',
-              '& fieldset': { borderColor: 'divider' },
-              '&:hover fieldset': { borderColor: 'primary.main' },
-              '&.Mui-focused fieldset': { borderColor: 'primary.main', borderWidth: 1 },
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "10px",
+              "& fieldset": { borderColor: "divider" },
+              "&:hover fieldset": { borderColor: "primary.main" },
+              "&.Mui-focused fieldset": {
+                borderColor: "primary.main",
+                borderWidth: 1,
+              },
             },
           }}
         />
 
         {/* Selected chips */}
         {selectedPeople.length > 0 && (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 1.5 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75, mb: 1.5 }}>
             {selectedPeople.map((p) => (
               <Chip
                 key={p.id}
-                label={p.name.split(' ')[0]}
+                label={p.name.split(" ")[0]}
                 size="small"
                 onDelete={() => toggle(p.id)}
                 avatar={
-                  <Avatar sx={{ bgcolor: 'primary.main', fontSize: '0.65rem' }}>
+                  <Avatar sx={{ bgcolor: "primary.main", fontSize: "0.65rem" }}>
                     {p.name[0]}
                   </Avatar>
                 }
                 sx={{
-                  bgcolor: '#d4edd9',
-                  color: 'primary.main',
+                  bgcolor: "#d4edd9",
+                  color: "primary.main",
                   fontWeight: 600,
-                  fontSize: '0.75rem',
-                  '& .MuiChip-deleteIcon': { color: 'primary.main', opacity: 0.6 },
+                  fontSize: "0.75rem",
+                  "& .MuiChip-deleteIcon": {
+                    color: "primary.main",
+                    opacity: 0.6,
+                  },
                 }}
               />
             ))}
@@ -152,9 +169,13 @@ export default function SendDialog({ open, onClose }: SendDialogProps) {
         <Divider sx={{ mb: 0.5 }} />
 
         {/* People list */}
-        <List disablePadding sx={{ maxHeight: 300, overflowY: 'auto' }}>
+        <List disablePadding sx={{ maxHeight: 300, overflowY: "auto" }}>
           {filtered.length === 0 && (
-            <Typography variant="body2" color="text.secondary" sx={{ py: 3, textAlign: 'center' }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ py: 3, textAlign: "center" }}
+            >
               No people found
             </Typography>
           )}
@@ -167,7 +188,8 @@ export default function SendDialog({ open, onClose }: SendDialogProps) {
                   sx={{
                     borderRadius: 2,
                     py: 0.75,
-                    bgcolor: isSelected ? '#f0f9f2' : 'transparent',
+                    bgcolor: isSelected ? "#f0f9f2" : "transparent",
+                    mb: 0.35,
                   }}
                 >
                   <ListItemAvatar sx={{ minWidth: 44 }}>
@@ -175,9 +197,9 @@ export default function SendDialog({ open, onClose }: SendDialogProps) {
                       sx={{
                         width: 34,
                         height: 34,
-                        bgcolor: isSelected ? 'primary.main' : '#d4edd9',
-                        color: isSelected ? '#fff' : 'primary.main',
-                        fontSize: '0.8rem',
+                        bgcolor: isSelected ? "primary.main" : "#d4edd9",
+                        color: isSelected ? "#fff" : "primary.main",
+                        fontSize: "0.8rem",
                         fontWeight: 700,
                       }}
                     >
@@ -200,8 +222,8 @@ export default function SendDialog({ open, onClose }: SendDialogProps) {
                     checked={isSelected}
                     size="small"
                     sx={{
-                      color: 'divider',
-                      '&.Mui-checked': { color: 'primary.main' },
+                      color: "divider",
+                      "&.Mui-checked": { color: "primary.main" },
                     }}
                   />
                 </ListItemButton>
@@ -213,18 +235,23 @@ export default function SendDialog({ open, onClose }: SendDialogProps) {
 
       <Divider />
 
-      <DialogActions sx={{ px: 2, py: 1.5, justifyContent: 'space-between' }}>
+      <DialogActions sx={{ px: 2, py: 1.5, justifyContent: "space-between" }}>
         <Typography variant="caption" color="text.secondary">
           {selected.length > 0
-            ? `${selected.length} recipient${selected.length > 1 ? 's' : ''} selected`
-            : 'Select recipients'}
+            ? `${selected.length} recipient${selected.length > 1 ? "s" : ""} selected`
+            : "Select recipients"}
         </Typography>
         <Button
           variant="contained"
           size="small"
+          sx={{ borderRadius: 0.6 }}
           disabled={selected.length === 0}
           onClick={handleSend}
-          startIcon={<SendRoundedIcon sx={{ transform: 'rotate(-45deg)', fontSize: '0.9rem' }} />}
+          startIcon={
+            <SendRoundedIcon
+              sx={{ transform: "rotate(-45deg)", fontSize: "0.9rem" }}
+            />
+          }
         >
           Send
         </Button>

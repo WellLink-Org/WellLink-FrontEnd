@@ -10,7 +10,7 @@ export async function GET(req: Request) {
 
     const role = url.searchParams.get("role") || "user";
 
-    await fetch(`${process.env.BACKEND_URL}/api/auth/update-role`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/update-role`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
