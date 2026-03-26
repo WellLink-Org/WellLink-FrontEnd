@@ -1,12 +1,13 @@
-import { getAccessToken } from "@auth0/nextjs-auth0";
+import { auth0 } from "../../../lib/auth0";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const BACKEND_URL = process.env.BACKEND_URL;
 
-export async function apiClient<T>(
+export async function serverClient<T>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T> {
-  const accessToken = await getAccessToken();
+  const session = await auth0.getSession();
+  const accessToken = session?.tokenSet.accessToken;
 
   const response = await fetch(`${BACKEND_URL}/api/${endpoint}`, {
     headers: {

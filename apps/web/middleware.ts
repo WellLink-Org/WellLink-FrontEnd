@@ -19,12 +19,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    // Auth0 routes must always be included
-    "/auth/:path*",
-    // Add your protected routes here
-    "/dashboard/:path*",
-    "/profile/:path*",
-    "/post-login",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

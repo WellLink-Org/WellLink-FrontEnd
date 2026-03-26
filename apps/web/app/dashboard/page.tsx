@@ -24,7 +24,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { healthApi } from "../../api/healthAPI";
+import { healthApi } from "../api/client/healthAPI";
 
 const stats = [
   {

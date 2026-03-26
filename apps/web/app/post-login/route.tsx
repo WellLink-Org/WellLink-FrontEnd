@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth0 } from "../../lib/auth0";
-import { userAPI } from "../../api/userAPI";
+import { userAPI } from "../api/server/userAPI";
 
 export async function GET(req: Request) {
   try {

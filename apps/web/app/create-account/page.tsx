@@ -4,7 +4,7 @@ import AuthCard from "../../components/AuthCard/AuthCard";
 import RoleSelector from "../../components/RoleSelector/RoleSelector";
 import { useState } from "react";
 import styles from "./page.module.css";
-import { userAPI } from "../../api/userAPI";
+import { userAPI } from "../api/server/userAPI";
 import { useRouter } from "next/navigation";
 
 export default function createAccountPage() {
@@ -15,7 +15,6 @@ export default function createAccountPage() {
   const [role, setRole] = useState<"user" | "doctor">("user");
 
   const handleSubmit = async (e: any) => {
-    console.log("ahifugfugdfisgdigig");
     e.preventDefault();
     if (userId) {
       await userAPI.updateRole(userId, role);
