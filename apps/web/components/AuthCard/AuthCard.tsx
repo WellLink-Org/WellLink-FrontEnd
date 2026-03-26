@@ -6,9 +6,9 @@ interface AuthCardProps {
   children: React.ReactNode;
   title: string;
   subtitle: string;
-  footerText: string;
-  footerLinkText: string;
-  footerLinkHref: string;
+  footerText?: string;
+  footerLinkText?: string;
+  footerLinkHref?: string;
 }
 
 export default function AuthCard({
@@ -37,7 +37,7 @@ export default function AuthCard({
 
         <p className={styles.footer}>
           {footerText}{" "}
-          <Link href={footerLinkHref} className={styles.footerLink}>
+          <Link href={footerLinkHref ?? "/"} className={styles.footerLink}>
             {footerLinkText}
           </Link>
         </p>

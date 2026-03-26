@@ -17,7 +17,7 @@ export default function LoginForm() {
     const params = new URLSearchParams({
       screen_hint: "login",
       login_hint: email,
-      returnTo: `/dashboard`,
+      returnTo: `/post-login`,
     });
     window.location.href = `/auth/login?${params}`;
   };

@@ -20,7 +20,7 @@ export default function SignupForm() {
     const params = new URLSearchParams({
       screen_hint: "signup",
       login_hint: email,
-      returnTo: `/post-login?role=${role}`,
+      redirect_uri: `/post-signup?role=${role}`,
     });
     window.location.href = `/auth/login?${params}`;
   };

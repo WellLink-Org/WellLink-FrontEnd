@@ -35,9 +35,7 @@ export default function SocialButton({
       screen_hint: action === "signup" ? "signup" : "login",
     });
 
-    if (action === "signup" && role) {
-      params.set("returnTo", `/post-login?role=${role}`);
-    }
+    params.set("returnTo", `/post-login${role ? `?role=${role}` : ""}`);
 
     window.location.href = `/auth/login?${params}`;
   };
