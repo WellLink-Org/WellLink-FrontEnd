@@ -11,9 +11,9 @@ export async function middleware(request: NextRequest) {
 
   // Check session for protected routes
   const session = await auth0.getSession(request);
-  if (!session?.user) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
+  //   if (!session?.user) {
+  //     return NextResponse.redirect(new URL("/", request.url));
+  //   }
 
   return await auth0.middleware(request);
 }

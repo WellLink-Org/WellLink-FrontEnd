@@ -4,8 +4,8 @@ import AuthCard from "../../components/AuthCard/AuthCard";
 import RoleSelector from "../../components/RoleSelector/RoleSelector";
 import { useState } from "react";
 import styles from "./page.module.css";
-import { userAPI } from "../api/server/userAPI";
 import { useRouter } from "next/navigation";
+import { userAPI } from "../api/client/userAPI";
 
 export default function createAccountPage() {
   const searchParams = useSearchParams();
