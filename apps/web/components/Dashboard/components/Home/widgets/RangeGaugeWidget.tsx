@@ -11,6 +11,7 @@ import Skeleton from "@mui/material/Skeleton";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 interface RangeMeta {
   label: string;
@@ -158,10 +159,10 @@ export default function RangeGaugeWidget({
   useEffect(() => {
     if (previewData || !meta) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=14`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, "14")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));

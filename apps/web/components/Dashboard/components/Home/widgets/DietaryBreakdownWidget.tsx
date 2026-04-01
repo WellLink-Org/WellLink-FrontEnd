@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import LinearProgress from "@mui/material/LinearProgress";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 // These are all fetched together regardless of which one triggered the widget
 const MACRO_CONFIG = [
@@ -63,13 +64,12 @@ export default function DietaryBreakdownWidget({
     const today = new Date().toISOString().slice(0, 10);
 
     Promise.all([
-      fetch(`/api/dashboard/widget-data?dataType=dietaryCalories&days=1`).then(
-        (r) => r.json(),
-      ),
+      dashboardAPI
+        .getWidgetData("dietaryCalories", "1")
+        .then((res) => res.data),
+
       ...MACRO_CONFIG.map((m) =>
-        fetch(`/api/dashboard/widget-data?dataType=${m.key}&days=1`).then((r) =>
-          r.json(),
-        ),
+        dashboardAPI.getWidgetData(m.key, "1").then((res) => res.data),
       ),
     ])
       .then(([calData, ...macroDataArr]) => {

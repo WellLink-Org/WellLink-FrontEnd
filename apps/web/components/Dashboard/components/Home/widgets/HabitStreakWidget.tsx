@@ -10,6 +10,7 @@ import Chip from "@mui/material/Chip";
 import Skeleton from "@mui/material/Skeleton";
 import Tooltip from "@mui/material/Tooltip";
 import LocalFireDepartmentRoundedIcon from "@mui/icons-material/LocalFireDepartmentRounded";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 const HABIT_META: Record<
   string,
@@ -138,10 +139,10 @@ export default function HabitStreakWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=28`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, "28")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));

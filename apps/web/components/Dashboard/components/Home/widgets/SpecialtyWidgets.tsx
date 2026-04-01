@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import Chip from "@mui/material/Chip";
 import Skeleton from "@mui/material/Skeleton";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 const SYMPTOM_LABELS: Record<string, string> = {
   symptomFatigue: "Fatigue",
@@ -54,10 +55,10 @@ export function SymptomSeverityWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=14`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, "14")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -260,10 +261,11 @@ export function EventTimelineWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=30`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+
+    dashboardAPI
+      .getWidgetData(dataType, "30")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -422,10 +424,10 @@ export function AudioExposureWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=7`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, "7")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -576,10 +578,10 @@ export function ReproductiveLogWidget({
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=35`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, "35")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));

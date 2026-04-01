@@ -10,6 +10,7 @@ import Chip from "@mui/material/Chip";
 import Skeleton from "@mui/material/Skeleton";
 import Divider from "@mui/material/Divider";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 interface DataPoint {
   sampled_at: string;
@@ -52,9 +53,9 @@ export default function BodyCompositionWidget({
     setLoading(true);
     Promise.all(
       METRICS.map((m) =>
-        fetch(`/api/dashboard/widget-data?dataType=${m.key}&days=30`)
-          .then((r) => r.json())
-          .then((d) => [m.key, d] as const),
+        dashboardAPI
+          .getWidgetData(m.key, "30")
+          .then((res) => [m.key, res.data] as const),
       ),
     )
       .then((entries) => {

@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Skeleton from "@mui/material/Skeleton";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 const LABEL_MAP: Record<
   string,
@@ -85,10 +86,10 @@ export default function BarChartWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=14`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, "14")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));

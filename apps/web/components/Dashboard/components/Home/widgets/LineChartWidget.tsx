@@ -12,6 +12,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { getTrend } from "./StatSparklineWidget";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 const LABEL_MAP: Record<
   string,
@@ -60,10 +61,10 @@ export default function LineChartWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=${days}`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, days.toString())
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -131,7 +132,7 @@ export default function LineChartWidget({
                   fontWeight: 700,
                 }}
               >
-                {latest?.toFixed(0) ?? "—"}
+                {Number(latest).toFixed(0) ?? "—"}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 {meta.unit}

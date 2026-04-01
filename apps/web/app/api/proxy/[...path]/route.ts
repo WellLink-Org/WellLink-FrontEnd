@@ -8,21 +8,44 @@ async function handler(
 ) {
   const session = await auth0.getSession();
   const accessToken = session?.tokenSet.accessToken;
-  const endpoint = (await params).path.join("/");
+  const userId = session?.user?.sub;
+  const url = new URL(req.url);
+  const queryString = url.search;
+
+  const pathArray = (await params).path;
+  let endpoint = pathArray.join("/");
 
   console.log("Proxy hit:", req.method, endpoint);
 
-  const response = await fetch(`${BACKEND_URL}/api/${endpoint}`, {
+  if (endpoint.includes(":userId")) {
+    endpoint = endpoint.replace(":userId", userId || "");
+  }
+
+  let body: any = undefined;
+
+  if (req.method !== "GET") {
+    try {
+      const json = await req.json();
+      body = JSON.stringify({
+        ...json,
+        userId: json.userId ?? userId,
+      });
+    } catch {
+      body = undefined;
+    }
+  }
+
+  const response = await fetch(`${BACKEND_URL}/api/${endpoint}${queryString}`, {
     method: req.method,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-    body: req.method !== "GET" ? req.body : undefined,
-    duplex: "half" as never,
+    body,
   });
 
   const data = await response.json();
+
   return Response.json(data, { status: response.status });
 }
 

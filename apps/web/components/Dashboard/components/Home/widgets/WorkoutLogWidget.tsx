@@ -17,6 +17,7 @@ import FitnessCenterRoundedIcon from "@mui/icons-material/FitnessCenterRounded";
 import SelfImprovementRoundedIcon from "@mui/icons-material/SelfImprovementRounded";
 import DirectionsWalkRoundedIcon from "@mui/icons-material/DirectionsWalkRounded";
 import SportsBasketballRoundedIcon from "@mui/icons-material/SportsBasketballRounded";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 const WORKOUT_ICONS: Record<string, React.ReactElement> = {
   running: <DirectionsRunRoundedIcon />,
@@ -103,7 +104,7 @@ function WorkoutRow({ workout }: { workout: Workout }) {
         )}
         {workout.distance_km && (
           <Typography variant="caption" color="text.secondary">
-            {workout.distance_km.toFixed(1)} km
+            {Number(workout.distance_km).toFixed(1)} km
           </Typography>
         )}
       </Stack>
@@ -125,10 +126,10 @@ export default function WorkoutLogWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=workouts&days=30`)
-      .then((r) => r.json())
-      .then((d) => {
-        setWorkouts(d);
+    dashboardAPI
+      .getWidgetData("workouts", "30")
+      .then((res) => {
+        setWorkouts(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -212,12 +213,18 @@ export default function WorkoutLogWidget({
         <Divider sx={{ mb: 0.5 }} />
 
         {shown.length > 0 ? (
-          shown.map((w, i) => (
-            <React.Fragment key={w.id ?? i}>
-              <WorkoutRow workout={w} />
-              {i < shown.length - 1 && <Divider />}
-            </React.Fragment>
-          ))
+          shown
+            .sort(
+              (a, b) =>
+                new Date(b.started_at).getTime() -
+                new Date(a.started_at).getTime(),
+            )
+            .map((w, i) => (
+              <React.Fragment key={w.id ?? i}>
+                <WorkoutRow workout={w} />
+                {i < shown.length - 1 && <Divider />}
+              </React.Fragment>
+            ))
         ) : (
           <Stack alignItems="center" justifyContent="center" sx={{ py: 4 }}>
             <Typography variant="body2" color="text.secondary">

@@ -33,7 +33,13 @@ import WidgetRenderer, {
   SizeVariant,
   WidgetType,
 } from "../../components/Dashboard/components/Home/WidgetRenderer";
-import { SectionHeader } from "../../components/Dashboard/components";
+import {
+  SectionHeader,
+  SendDialog,
+} from "../../components/Dashboard/components";
+import { dashboardAPI } from "../api/client/dashboardAPI";
+import SendIcon from "@mui/icons-material/Send";
+import Tooltip from "@mui/material/Tooltip";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const ReactGridLayout = require("react-grid-layout");
@@ -379,6 +385,8 @@ export default function DashboardPage() {
   const [addOpen, setAddOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [containerWidth, setContainerWidth] = useState(1200);
+  const [sendOpen, setSendOpen] = useState(false);
+
   const [toast, setToast] = useState<{
     open: boolean;
     message: string;
@@ -400,10 +408,10 @@ export default function DashboardPage() {
 
   // Load dashboard on mount
   useEffect(() => {
-    fetch("/api/dashboard")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data?.widgets) setWidgets(data.widgets);
+    dashboardAPI
+      .getDashboard()
+      .then((res) => {
+        if (res.data?.widgets) setWidgets(res.data.widgets);
       })
       .catch(console.error);
   }, []);
@@ -420,11 +428,7 @@ export default function DashboardPage() {
         const l = layout.find((l) => l.i === w.id);
         return l ? { ...w, x: l.x, y: l.y, w: l.w, h: l.h } : w;
       });
-      await fetch("/api/dashboard/widgets", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ widgets: updated }),
-      });
+      await dashboardAPI.updateDashboard(updated);
       setWidgets(updated);
       setEditMode(false);
       setToast({ open: true, message: "Dashboard saved", severity: "success" });
@@ -536,7 +540,20 @@ export default function DashboardPage() {
             )}
           </Stack>
         }
+        toolbar={
+          <>
+            <Tooltip title="Send">
+              <IconButton onClick={() => setSendOpen(true)}>
+                <SendIcon
+                  fontSize="small"
+                  sx={{ transform: "rotate(-45deg)" }}
+                />
+              </IconButton>
+            </Tooltip>
+          </>
+        }
       />
+      <SendDialog open={sendOpen} onClose={() => setSendOpen(false)} />
 
       {editMode && (
         <Alert severity="info" sx={{ mb: 2, borderRadius: 1 }}>

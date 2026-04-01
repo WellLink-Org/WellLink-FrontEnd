@@ -12,6 +12,7 @@ import Divider from "@mui/material/Divider";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 interface DataPoint {
   sampled_at: string;
@@ -53,12 +54,12 @@ export default function VitalPanelWidget({
     if (previewSystolic) return;
     setLoading(true);
     Promise.all([
-      fetch(
-        `/api/dashboard/widget-data?dataType=bloodPressureSystolic&days=14`,
-      ).then((r) => r.json()),
-      fetch(
-        `/api/dashboard/widget-data?dataType=bloodPressureDiastolic&days=14`,
-      ).then((r) => r.json()),
+      dashboardAPI
+        .getWidgetData("bloodPressureSystolic", "14")
+        .then((res) => res.data),
+      dashboardAPI
+        .getWidgetData("bloodPressureDiastolic", "14")
+        .then((res) => res.data),
     ])
       .then(([sys, dia]) => {
         setSystolic(sys);

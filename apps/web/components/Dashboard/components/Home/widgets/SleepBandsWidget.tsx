@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Skeleton from "@mui/material/Skeleton";
 import Tooltip from "@mui/material/Tooltip";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 const STAGE_CONFIG: Record<
   string,
@@ -154,10 +155,10 @@ export default function SleepBandsWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=sleep&days=7`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData("sleep", "7")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));

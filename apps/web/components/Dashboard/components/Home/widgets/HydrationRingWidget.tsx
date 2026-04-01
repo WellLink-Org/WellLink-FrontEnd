@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 const DAILY_GOAL_L = 2.5;
 
@@ -67,10 +68,10 @@ export default function HydrationRingWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=dietaryWater&days=1`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData("dietaryWater", "1")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));

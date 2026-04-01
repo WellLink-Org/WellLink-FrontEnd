@@ -12,6 +12,7 @@ import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
 import TrendingFlatRoundedIcon from "@mui/icons-material/TrendingFlatRounded";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { dashboardAPI } from "../../../../../app/api/client/dashboardAPI";
 
 export const STAT_LABEL_MAP: Record<string, string> = {
   steps: "Steps",
@@ -97,10 +98,10 @@ export default function StatSparklineWidget({
   useEffect(() => {
     if (previewData) return;
     setLoading(true);
-    fetch(`/api/dashboard/widget-data?dataType=${dataType}&days=14`)
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
+    dashboardAPI
+      .getWidgetData(dataType, "14")
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
